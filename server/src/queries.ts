@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { createHash } from "crypto";
-import { Mission } from "./types";
+import { FuelDelivery, Mission } from "./types";
 
 export const ListMissions = (missions: Mission[], args: any) => {
   if (args.sort) {
@@ -15,6 +15,10 @@ export const ListMissions = (missions: Mission[], args: any) => {
           a = new Date(aMission.launch.date);
           b = new Date(bMission.launch.date);
           break;
+        case "Operator":
+          a = aMission.operator;
+          b = bMission.operator;
+          break;
         default:
           a = "";
           b = "";
@@ -22,11 +26,15 @@ export const ListMissions = (missions: Mission[], args: any) => {
       if (args.sort?.desc === true) {
         return a < b ? 1 : -1;
       } else {
-        return a > b ? 1 : -1;        
+        return a > b ? 1 : -1;
       }
     });
   }
   return missions;
+};
+
+export const ListFuelDeliveries = (fuelDeliveries: FuelDelivery[]) => {
+  return fuelDeliveries;
 };
 
 export const GetMissionById = (missions: Mission[], id: String) => {
@@ -40,4 +48,20 @@ export const CreateMission = (mission: Mission): Mission => {
     .substring(32);
 
   return mission;
+};
+export const editMission = (missions: Mission[], id: String, editMission: Mission): Mission[] => {
+  missions.forEach((mission: Mission, i: number) => {
+    if (mission.id === id) {
+      missions[i] = editMission;
+    }
+  })
+  return missions;
+};
+export const removeMission = (missions: Mission[], id: String): Mission[] => {
+  missions.forEach((mission: Mission, i: number) => {
+    if (mission.id === id) {
+      missions.splice(i, 1);
+    }
+  })
+  return missions;
 };

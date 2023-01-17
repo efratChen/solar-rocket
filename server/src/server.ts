@@ -8,7 +8,7 @@ import { DateTimeResolver } from "graphql-scalars";
 import path from "path";
 import { GraphQLSchema } from "graphql";
 import { Mission } from "./types";
-import { CreateMission, GetMissionById, ListMissions } from "./queries";
+import { CreateMission, editMission, GetMissionById, ListMissions, removeMission } from "./queries";
 
 const DATA_DIR = path.join(__dirname, "../.data");
 const DATA_DIR_INIT = path.join(__dirname, "../data/init");
@@ -81,10 +81,8 @@ const main = async () => {
       Mutation: {
         async createMission(obj, args) {
           const missions = await loadMissions();
-
           const mission = CreateMission(args.mission);
           missions.push(mission);
-
           await writeFile(
             path.join(DATA_DIR, DATA_FILE_MISSIONS),
             JSON.stringify(missions),
@@ -92,7 +90,28 @@ const main = async () => {
           );
           return mission;
         },
-      },
+        async removeMission(obj, args) {
+          var missions = await loadMissions();
+          const newmMissions = removeMission(missions, args.id);
+          await writeFile(
+            path.join(DATA_DIR, DATA_FILE_MISSIONS),
+            JSON.stringify(newmMissions),
+            "utf8"
+          );
+          return newmMissions;
+        }
+        // ,
+        // async editMission(obj, args) {
+        //   var missions = await loadMissions();
+        //   const editedMissions = editMission(missions, args.id,args.mission);
+        //   await writeFile(
+        //     path.join(DATA_DIR, DATA_FILE_MISSIONS),
+        //     JSON.stringify(editedMissions),
+        //     "utf8"
+        //   );
+        //   return editedMissions;
+        // }
+      }
     },
   });
 
@@ -102,6 +121,15 @@ const main = async () => {
       res.send(readme);
     }
   );
+  app.use('/graphql', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,  Authorization, Content-Length, X-Requested-With');
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
 
   app.use(
     "/graphql",

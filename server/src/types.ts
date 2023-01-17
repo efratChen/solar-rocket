@@ -7,6 +7,12 @@ export type Mission = {
   payload: Payload;
 }
 
+export type FuelDelivery = {
+  id: String;
+  title: String;
+  launch: Launch;
+}
+
 export type Launch = {
   date: Date;
   vehicle: String;

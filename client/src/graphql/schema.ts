@@ -8,6 +8,8 @@ export type Mission = {
 }
 
 export type Launch = {
+  id: String;
+  mission_name: String;
   date: Date;
   vehicle: String;
   location: Location;
@@ -30,3 +32,9 @@ export type Payload = {
   available: Number;
 }
 
+export type Delivery = {
+  icon: String;
+  quantity: Number;
+  type: String;
+  unit: String;
+}

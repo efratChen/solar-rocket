@@ -5,6 +5,8 @@ type Query {
 
 type Mutation {
   createMission(mission: MissionInput): Mission
+  removeMission(id: ID!): [Mission]!
+  editMission(id: ID!, mission: MissionInput): [Mission]!
 }
 
 input MissionInput {
@@ -46,6 +48,7 @@ input MissionSortOptions {
 enum MissionSortFields {
   Title
   Date
+  Operator
 }
 
 type Mission {
@@ -78,6 +81,18 @@ type Orbit {
 type Payload {
   capacity: Int!
   available: Int!
+}
+
+type FuelDelivery {
+  id: ID!
+  title: String!
+  launch: Launch!
+}
+
+type FuelDelivery {
+  id: ID!
+  title: String!
+  launch: Launch!
 }
 
 scalar DateTime
