@@ -89,10 +89,4 @@ type FuelDelivery {
   launch: Launch!
 }
 
-type FuelDelivery {
-  id: ID!
-  title: String!
-  launch: Launch!
-}
-
 scalar DateTime

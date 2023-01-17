@@ -7,12 +7,11 @@ import { FuelDeliveryDetails } from "./FuelDeliveryDetails";
 const FuelDeliveries = (): JSX.Element => {
   const [deliveryDates, setDeliveryDates] = useState<String[] | null>(null);
   const [openfuelDeliveryDetails, setOpenFuelDeliveryDetails] = useState<boolean>(false);
-  const [selectedFuelDeliveryDate, setSelectedFuelDeliveryDate] = useState<String | null>(null);
+  const [selectedFuelDeliveryDate, setSelectedFuelDeliveryDate] = useState<String>("");
 
   getDelivery().then((data) => {
     setDeliveryDates(data.deliveryDates);
   });
-
   const fuelDeliveryDetails = (missions: String) => {
     setSelectedFuelDeliveryDate(missions);
     setOpenFuelDeliveryDetails(true)
