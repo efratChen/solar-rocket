@@ -30,7 +30,7 @@ const FuelDeliveryDetails = ({ openfuelDeliveryDetails,
   };
 
   useEffect(() => {
-    getDeliveryDetailsByDate({ selectedFuelDeliveryDate }).then((data) => {
+    getDeliveryDetailsByDate({ selectedFuelDeliveryDate }).then((data: any) => {
       setDeliveries(data.deliveries);
     });
 
@@ -46,7 +46,7 @@ const FuelDeliveryDetails = ({ openfuelDeliveryDetails,
             maxWidth="sm"
             className="text-align-center"
           >
-            <DialogTitle>Fuel Delivery Details</DialogTitle>
+            <DialogTitle>Fuel Delivery Details {selectedFuelDeliveryDate}</DialogTitle>
             <DialogContent>
               {deliveries && deliveries.map((launch: Delivery, key: number) => (
                 <>
@@ -63,13 +63,14 @@ const FuelDeliveryDetails = ({ openfuelDeliveryDetails,
                       />
                       <CardContent>
                         <>
-                          quantity: {launch.quantity}{<br/>}
-                          type: {launch.type}{<br/>}
-                          unit: {launch.unit.toString()}{<br/>}
+                          {<b>quantity:</b>} {launch.quantity}{<br/>}
+                          {<b>type:</b>} {launch.type}{<br/>}
+                          {<b>unit:</b>} {launch.unit.toString()}{<br/>}
                         </>
                       </CardContent>
                     </Card>
                   </Grid>
+                  <br/>
                 </>
               ))}
             </DialogContent>

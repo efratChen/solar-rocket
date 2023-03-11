@@ -9,7 +9,7 @@ const FuelDeliveries = (): JSX.Element => {
   const [openfuelDeliveryDetails, setOpenFuelDeliveryDetails] = useState<boolean>(false);
   const [selectedFuelDeliveryDate, setSelectedFuelDeliveryDate] = useState<String>("");
 
-  getDelivery().then((data) => {
+  getDelivery().then((data: any) => {
     setDeliveryDates(data.deliveryDates);
   });
   const fuelDeliveryDetails = (missions: String) => {
@@ -30,17 +30,17 @@ const FuelDeliveries = (): JSX.Element => {
         {deliveryDates ? (
           <Grid container spacing={2}>
             {" "}
-            {deliveryDates.map((missions: String, key: number) => (
+            {deliveryDates.map((delivery: String, key: number) => (
               <Grid item key={key}>
                 <Card sx={{ width: 275, height: 200 }}>
                   <CardHeader
-                    title={missions}
+                    title={delivery}
                   />
                   <CardContent>
-                    <Typography noWrap>Upcoming in {missions}</Typography>
+                    <Typography noWrap>Upcoming in {delivery}</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button onClick={() => fuelDeliveryDetails(missions)}>Show Details</Button>
+                    <Button onClick={() => fuelDeliveryDetails(delivery)}>Show Details</Button>
                   </CardActions>
                 </Card>
               </Grid>
